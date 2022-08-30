@@ -10,6 +10,8 @@ const SelectionBox = ({ book, bookPage }) => {
   const { data } = useQuery(["Books"], async () => await getAll());
 
   const filtered = data?.length && data?.filter((item) => item.id === book.id);
+  const filteredShelf = filtered[0]?.shelf === undefined ? "none" : filtered[0]?.shelf
+  console.log(filtered)
 
   return (
     <Popover className="relative">
@@ -37,21 +39,17 @@ const SelectionBox = ({ book, bookPage }) => {
                   <div className="bg-white py-4 rounded-md shadow-md z-40 absolute -bottom-14 right-5">
                     <div className="text-sm">
                       <p
-                        className={`${
-                          filtered[0]?.shelf === undefined
-                            ? "bg-blue-500 text-white font-semibold"
-                            : "hover:text-blue-500 text-dark-1"
-                        }  w-full px-4 py-2 cursor-pointer`}>
+                        className="hover:text-blue-500 text-dark-1 w-full px-4 py-2 cursor-pointer">
                         Move to...
                       </p>
-                      {shelves.filter((shelf) => filtered[0]?.shelf ? shelf : shelf.slug !== 'none').map((shelf) => (
+                      {shelves.map((shelf) => (
                         <p
                           onClick={() => {
                             mutate({ book, shelf: shelf.slug });
                             close();
                           }}
                           className={`${
-                            filtered[0]?.shelf === shelf.slug ||
+                            filteredShelf === shelf.slug ||
                             book.shelf === shelf.slug
                               ? "bg-blue-500 text-white font-semibold"
                               : "hover:text-blue-500 text-dark-1"
