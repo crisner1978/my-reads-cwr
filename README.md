@@ -4,6 +4,10 @@ Bookshelf application to showcase the power of REACT!
 - One of the projects in Udacity's React Program.
 - Uses functional components and React Hooks. 
 - Maximizes Composition and Reusable Components.
+- Home Page has 3 shelves, Currently Reading, Want To Read, and Read.
+- Search Page has debounced throttling to search for books.
+- React Drag N Drop added to Home Page to move Books between shelves.
+- Individual Book Page offers more details and information. 
 
 ## Bootstrapped with Create React App
 
