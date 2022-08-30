@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { getAll, update } from "../utils/booksApi";
 import { shelves } from "../utils/shelves";
 
-const SelectionBox = ({ book }) => {
+const SelectionBox = ({ book, bookPage }) => {
   const { mutate } = useMutation(update);
   const { data } = useQuery(["Books"], async () => await getAll());
 
@@ -31,7 +31,7 @@ const SelectionBox = ({ book }) => {
             leave="transition ease-in duration-150"
             leaveFrom="opacity-100 translate-y-0"
             leaveTo="opacity-0 translate-y-1">
-            <Popover.Panel className="absolute -left-1/12 z-10 mt-3 w-screen max-w-sm -translate-x-1/3 transform px-4 sm:px-0">
+            <Popover.Panel className={`${bookPage ? "z-10 -translate-x-1/2 absolute -bottom-10 max-w-sm w-44" : "absolute left-32 z-30 mt-3 w-44 max-w-sm -translate-x-1/3 transform px-4 sm:px-0" } `}>
               {({ close }) => (
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="bg-white py-4 rounded-md shadow-md z-40 absolute -bottom-14 right-5">
@@ -44,7 +44,7 @@ const SelectionBox = ({ book }) => {
                         }  w-full px-4 py-2 cursor-pointer`}>
                         Move to...
                       </p>
-                      {shelves.map((shelf) => (
+                      {shelves.filter((shelf) => filtered[0]?.shelf ? shelf : shelf.slug !== 'none').map((shelf) => (
                         <p
                           onClick={() => {
                             mutate({ book, shelf: shelf.slug });

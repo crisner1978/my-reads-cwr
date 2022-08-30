@@ -1,8 +1,8 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Navbar } from "./components";
-import { HomePage, SearchPage } from "./pages";
+import { Navbar } from "components";
+import { BookPage, HomePage, SearchPage } from "pages";
 import { getAll, update } from "./utils/booksApi";
 import { shelves } from "./utils/shelves";
 
@@ -28,6 +28,7 @@ const App = () => {
 
   const { mutateAsync } = useMutation(update);
 
+  // Move Book with React Drag N Drop
   const moveBook = (book, hoverIndex) => {
     const shelf = shelves[hoverIndex].slug;
     mutateAsync({ book, shelf });
@@ -36,8 +37,8 @@ const App = () => {
   return (
     <div
       className={`${
-        isSearch && "overflow-scroll scrollbar-hide max-h-screen"
-      } overflow-hidden max-h-screen`}>
+        !isSearch && "overflow-hidden max-h-screen"
+      } overflow-scroll scrollbar-hide max-h-screen`}>
       <Navbar
         title="bookShelf"
         setSearch={setSearch}
@@ -45,13 +46,20 @@ const App = () => {
         setDebounced={setDebounced}
         isSearch={isSearch}
       />
-      <div className=" scrollbar-hide ">
+      <div className="scrollbar-hide ">
         <Routes>
           <Route
             path="/"
             element={<HomePage books={books} moveBook={moveBook} />}
           />
-          <Route path="search" element={<SearchPage search={search} isSearch={isSearch} />} />
+          <Route
+            path="search"
+            element={<SearchPage search={search} isSearch={isSearch} />}
+          />
+          <Route
+            path="book/:bookId"
+            element={<BookPage isSearch={isSearch} />}
+          />
         </Routes>
       </div>
     </div>

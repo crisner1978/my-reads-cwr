@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDrop } from "react-dnd";
 import { findShelfIndex } from "../utils/shelves";
-import BookCard from "./BookCard";
+import { BookCard } from ".";
 
 const Shelf = ({ books, slug, heading, moveBook, shelf }) => {
   const ref = useRef(null);

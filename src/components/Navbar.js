@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { SearchLink } from "components";
+import { SearchLink } from ".";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = ({ title, setSearch, debounced, setDebounced, isSearch }) => {
   useEffect(() => {
@@ -32,9 +32,12 @@ const Navbar = ({ title, setSearch, debounced, setDebounced, isSearch }) => {
           </div>
         ) : (
           <>
-            <h1 className="text-2xl font-bold tracking-wide text-react-blue">
-              {title}
-            </h1>
+            <Link to="/">
+              <span className="text-2xl font-bold tracking-wide text-react-blue">
+                {title}
+              </span>
+            </Link>
+
             <SearchLink text="search" />
           </>
         )}
