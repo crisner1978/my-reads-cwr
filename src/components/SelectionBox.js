@@ -11,7 +11,6 @@ const SelectionBox = ({ book, bookPage }) => {
 
   const filtered = data?.length && data?.filter((item) => item.id === book.id);
   const filteredShelf = filtered[0]?.shelf === undefined ? "none" : filtered[0]?.shelf
-  console.log(filtered)
 
   return (
     <Popover className="relative">
